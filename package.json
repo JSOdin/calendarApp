@@ -1,0 +1,17 @@
+{
+  "name": "calendarapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./app/app.js",
+  "scripts": {
+    "test": ""
+  },
+  "author": "Jae Kim <victorydota@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "angular": "^1.5.8",
+    "angular-mocks": "^1.5.8",
+    "angular-ui-router": "^0.3.1",
+    "jasmine": "^2.5.2"
+  }
+}
