@@ -13,7 +13,7 @@
         eventsController.$inject=['$scope','$stateParams', 'calendarData'];
 
         function eventsController($scope, $stateParams, calendarData){
-           
+            $scope.events = calendarData.currentEventsDay.events;
         }
 
 })(window,window.angular);
