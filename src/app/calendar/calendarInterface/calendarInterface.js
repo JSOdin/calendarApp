@@ -34,7 +34,7 @@
 
                     function initCalendar(){
                         calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
-                        scope.weeks = calendarData.weeks[thisMonthReference.month()];
+                        scope.weeks = calendarData.weeks[thisMonthReference.month()]
                     }
                 }
             }

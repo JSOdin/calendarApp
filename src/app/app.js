@@ -4,8 +4,8 @@
             $compileProvider.debugInfoEnabled(false);
 
             $stateProvider.state('events',{
-                url:'/events/:day',
-                templateUrl:'./src/app/events/eventsManager.html'
+                url:'/events/:month/:day',
+                templateUrl:'./src/app/calendar/events/eventsManager.html'
             })
         }]);      
 })(window,window.angular);

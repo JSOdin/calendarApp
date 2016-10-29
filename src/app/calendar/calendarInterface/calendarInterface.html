@@ -17,7 +17,7 @@
     <div class="row week-row" ng-repeat="week in weeks">
         <div class="col-xs-12 col-xs-offset-1">
             <div class="row week-partition-row">
-                <div class="col-xs-2" ng-repeat="day in week.days">
+                <div class="col-xs-2" ng-repeat="day in week.days" ui-sref="events({day: day.moment.date(), month: day.moment.month()+1})">
                     <div class="row week-day-number text-center">
                         <div class="col-xs-14">
                             {{day.moment.date()}}
