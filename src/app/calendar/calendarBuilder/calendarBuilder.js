@@ -23,7 +23,7 @@
                 var iterationNum, dayToInsert=firstDayOfWeek.clone().day(0), week=[],day;        
                 for (iterationNum=0; iterationNum<7; iterationNum++){
                     day = {moment: dayToInsert, events: []};
-                    week.push(dayToInsert);
+                    week.push(day);
                     dayToInsert = dayToInsert.clone();
                     dayToInsert.add(1,'day');
                 }
