@@ -5,8 +5,15 @@
                 restrict:'E',
                 templateUrl: './src/app/calendar/events/eventsInterface.html',
                 link: function(scope){
-
-                }
+                },
+                controller: eventsController
             }
-        }])
+        }]);
+    
+        eventsController.$inject=['$scope','$stateParams', 'calendarData'];
+
+        function eventsController($scope, $stateParams, calendarData){
+           
+        }
+
 })(window,window.angular);

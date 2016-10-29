@@ -8,9 +8,10 @@
             function createWeeks(startOfCalendarViewMoment, thisMonthReference){
                 var hasFourWeeksAndPassedMonth, weeksCount = 0, weekStart = startOfCalendarViewMoment.clone(), currentMonth = weekStart.month(),
                     week, referenceMonth = thisMonthReference.month();
+
+                calendarData.weeks[referenceMonth] = calendarData.weeks[referenceMonth] || [];
                 while (!hasFourWeeksAndPassedMonth){
-                    week = {days : createDays(weekStart.clone())};
-                    calendarData.weeks[referenceMonth] = calendarData.weeks[referenceMonth] || [];
+                    week= {days:createDays(weekStart.clone())};
                     calendarData.weeks[referenceMonth].push(week);
                     weeksCount++;
                     weekStart.add(1,'week');

@@ -7,10 +7,7 @@
                 link: function(scope){
                     var thisMonthReference = calendarData.currentMonth, startOfCalendarViewMoment = resetToFirstDayOnCalendar(thisMonthReference.clone());
 
-                    console.log('revisiting');
                     initCalendar();
-
-                    console.log(scope.weeks);
                     scope.incrementMonth = function(){
                         thisMonthReference.month(thisMonthReference.month()+1);
                         startOfCalendarViewMoment = resetToFirstDayOnCalendar(thisMonthReference.clone());
@@ -21,7 +18,11 @@
                         thisMonthReference.month(thisMonthReference.month()-1);
                         startOfCalendarViewMoment = resetToFirstDayOnCalendar(thisMonthReference.clone());
                         switchMonth(scope, startOfCalendarViewMoment,thisMonthReference);
-                    }
+                    }            
+                    
+                    scope.selectDayForEventsPage = function(day){
+                        calendarData.currentEventsDay = day;
+                    };
                     
                     function switchMonth(scope, startOfCalendarViewMoment, thisMonthReference){
                         var nextMonth = calendarData.weeks[thisMonthReference.month()];
