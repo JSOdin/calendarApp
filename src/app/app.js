@@ -6,7 +6,7 @@
             $stateProvider.state('calendar',{
                 url:'/',
                 templateUrl:'./src/app/calendar/calendar.html'
-            })
+            });
 
             $stateProvider.state('events',{
                 url:'/events/:month/:day',
