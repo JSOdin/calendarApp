@@ -6,8 +6,7 @@
                 templateUrl: './src/app/calendar/calendarInterface/calendarInterface.html',
                 link: function(scope){
                     var thisMonthReference = calendarData.currentMonth, startOfCalendarViewMoment = resetToFirstDayOnCalendar(thisMonthReference.clone());
-                    calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
-                    scope.weeks = calendarData.weeks[thisMonthReference.month()];
+                    initCalendar();
                     scope.incrementMonth = function(){
                         thisMonthReference.month(thisMonthReference.month()+1);
                         startOfCalendarViewMoment = resetToFirstDayOnCalendar(thisMonthReference.clone());
@@ -24,7 +23,7 @@
                         var nextMonth = calendarData.weeks[thisMonthReference.month()];
                         if (!nextMonth){
                             calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
-                            return scope.weeks = calendarData.weeks[thisMonthReference.month()];
+                            nextMonth = calendarData.weeks[thisMonthReference.month()];
                         }
                         scope.weeks = nextMonth;
                     }
@@ -32,9 +31,12 @@
                     function resetToFirstDayOnCalendar(moment){
                         return moment.date(1).day(0);
                     }
+
+                    function initCalendar(){
+                        calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
+                        scope.weeks = calendarData.weeks[thisMonthReference.month()];
+                    }
                 }
-            }            
-            
-            
+            }
         }])
 })(window,window.angular);
