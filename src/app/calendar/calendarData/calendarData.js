@@ -1,11 +1,11 @@
 (function(window,angular){
     angular.module('calendarApp')
         .factory('calendarData',[function(){
-            var weeks=[], selectedDay, currentMonth=moment();
+            var weeks={},                
+                currentMonth=moment();
             
             return {
                 weeks: weeks,
-                selectedDay: selectedDay,
                 currentMonth: currentMonth
             }
         }])

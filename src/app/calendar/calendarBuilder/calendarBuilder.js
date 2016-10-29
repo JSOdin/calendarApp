@@ -1,17 +1,17 @@
 (function(window,angular){
     angular.module('calendarApp')
-        .factory('calendarBuilder',[function(){                 
+        .factory('calendarBuilder',['calendarData',function(calendarData){                 
             return {
                 createWeeks:createWeeks
             }
             
-            function createWeeks(scope,startOfCalendarViewMoment){
-                var hasFourWeeksAndPassedMonth, weeksCount = 0, weekStart = startOfCalendarViewMoment.clone(), currentMonth = weekStart.month();
+            function createWeeks(startOfCalendarViewMoment, thisMonthReference){
+                var hasFourWeeksAndPassedMonth, weeksCount = 0, weekStart = startOfCalendarViewMoment.clone(), currentMonth = weekStart.month(),
+                    week, referenceMonth = thisMonthReference.month();
                 while (!hasFourWeeksAndPassedMonth){
-                    var week = {
-                        days : createDays(weekStart.clone())
-                    }
-                    scope.weeks.push(week);
+                    week = {days : createDays(weekStart.clone())};
+                    calendarData.weeks[referenceMonth] = calendarData.weeks[referenceMonth] || [];
+                    calendarData.weeks[referenceMonth].push(week);
                     weeksCount++;
                     weekStart.add(1,'week');
                     hasFourWeeksAndPassedMonth = weeksCount > 3 && weekStart.month() != currentMonth;
