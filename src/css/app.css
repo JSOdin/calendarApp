@@ -1,12 +1,16 @@
 
-.widget-wrap .month-label, .widget-wrap .week-row{
+.widget-wrap .month-label > div, .widget-wrap .week-row > div{
     border-bottom: 1px solid darkslategrey;
 }
 
 /* week rows */
 
-.week-partition-row > div[class*="col-xs-"]:not(:last-child) {
+.week-partition-row > div[class*="col-xs-"]{
     border-right: 1px solid darkslategrey;
+}
+
+.week-partition-row > div[class*="col-xs-"]:first-child {
+    border-left: 1px solid darkslategrey;
 }
 
 .week-day-number, .week-day-events {
@@ -19,11 +23,8 @@
 
 /* top row */
 
-.month-label-partition-row > div:nth-child(1) {
+.month-label-partition-row > div:nth-child(1),.month-label-partition-row > div:nth-child(3) {
     border-right: 1px solid darkslategrey;
-}
-
-.month-label-partition-row > div:nth-child(3){
     border-left: 1px solid darkslategrey;
 }
 
