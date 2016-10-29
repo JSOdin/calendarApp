@@ -42,4 +42,6 @@
 .events-left-column > div:nth-child(2),.events-right-column > div:nth-child(2) {
     margin-top: 5px;
 }
-
+.events-right-column > div > div:nth-child(2) >div{
+    margin-left: 5px;
+}

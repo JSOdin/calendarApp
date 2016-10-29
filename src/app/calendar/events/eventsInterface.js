@@ -5,15 +5,23 @@
                 restrict:'E',
                 templateUrl: './src/app/calendar/events/eventsInterface.html',
                 link: function(scope){
-                },
-                controller: eventsController
+                    scope.today = calendarData.currentEventsDay;
+
+                    scope.addEvent = addEvent;
+                    
+                    scope.removeEvent = removeEvent;
+
+                    function addEvent(eventType, eventName){
+                        if (!scope.eventName) return;
+                        var event = {type:eventType, name: eventName};
+                        scope.today.events.push(event);
+                        scope.eventName = '';
+                    }
+
+                    function removeEvent(index){
+                        scope.today.events.splice(index,1);
+                    }
+                }
             }
         }]);
-    
-        eventsController.$inject=['$scope','$stateParams', 'calendarData'];
-
-        function eventsController($scope, $stateParams, calendarData){
-            $scope.events = calendarData.currentEventsDay.events;
-        }
-
 })(window,window.angular);
