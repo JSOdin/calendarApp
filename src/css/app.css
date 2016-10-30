@@ -15,7 +15,7 @@
 }
 
 .week-partition-row > div:hover{
-    border: 1px solid #337ab7;
+    border: 1px solid #337ab7 !important;
     cursor: pointer;
 }
 

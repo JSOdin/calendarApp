@@ -22,5 +22,156 @@
     <script src="./src/app/calendar/calendarBuilder/calendarBuilder.js"></script>
     <script src="./src/app/calendar/events/eventsInterface.js"></script>
     <script src="./src/app/calendar/events/weatherForecast/weatherForecast.js"></script>
+
+    <script type="text/ng-template" id="calendar">
+        <calendar></calendar>
+    </script>
+
+    <script type="text/ng-template" id="calendarInterface">
+        <div class="container-fluid widget-wrap">
+            <div class="row month-label">
+                <div class="col-xs-12 col-xs-offset-1">
+                    <div class="row month-label-partition-row">
+                        <div class="col-xs-2 text-center btn-primary" ng-click="decrementMonth()">
+                            &lt;&lt;
+                        </div>
+                        <div class="col-xs-10 text-center btn-info">
+                            <h4>{{thisCalendarMonthDisplay}}</h4>
+                        </div>
+                        <div class="col-xs-2 text-center btn-default btn-primary" ng-click="incrementMonth()">
+                            &gt;&gt;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-xs-offset-1">
+                    <div class="row days-of-week bg-info">
+                        <div class="col-xs-2 text-center">
+                            Sunday
+                        </div>
+                        <div class="col-xs-2 text-center">
+                            Monday
+                        </div>
+                        <div class="col-xs-2 text-center">
+                            Tuesday
+                        </div>
+                        <div class="col-xs-2 text-center">
+                            Wednesday
+                        </div>
+                        <div class="col-xs-2 text-center">
+                            Thursday
+                        </div>
+                        <div class="col-xs-2 text-center">
+                            Friday
+                        </div>
+                        <div class="col-xs-2 text-center">
+                            Saturday
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row week-row" ng-repeat="week in weeks">
+                <div class="col-xs-12 col-xs-offset-1">
+                    <div class="row week-partition-row">
+                        <div class="col-xs-2" ng-repeat="day in week.days"  ui-sref="events({day: day.moment.date(), month: day.moment.month()+1})" ng-click="selectDayForEventsPage(day)">
+                            <div class="row week-day-events">
+                                <div class="col-xs-14">
+                                    <div class="row">
+                                        <div class="col-xs-14">
+                                            <div ng-class="isItSameDate(day) ? 'panel panel-warning' : day.selected ? 'panel panel-primary':'panel panel-info'">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-2">
+                                                            <strong>{{day.moment.date()}}</strong>
+                                                        </div>
+                                                        <div class="col-xs-offset-2 col-xs-10 text-right" ng-show="day.events.length">
+                                                            Events <span class="badge">{{day.events.length}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <ul style="padding-left: 20px;">
+                                                        <li ng-show="filterEventsByType(day.events, 'Meeting').length">{{filterEventsByType(day.events, "Meeting").length}} Meetings</li>
+                                                        <li ng-show="filterEventsByType(day.events,'Appointment').length">{{filterEventsByType(day.events, "Appointment").length}} Appointments</li>
+                                                        <li ng-show="filterEventsByType(day.events, 'Task').length">{{filterEventsByType(day.events, "Task").length}} Tasks</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="eventsManager">
+        <events-interface></events-interface>
+    </script>
+
+    <script type="text/ng-template" id="eventsInterface">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-offset-2 col-xs-10 events-wrapper">
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <h3>{{today.moment.format('MMMM Do, YYYY')}}</h3>
+                        </div>
+                        <div class="col-xs-7" ng-show="forecast.length">
+                            <h3 class="text-right">Forecast: {{forecast[0].text}}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 events-left-column">
+                            <div class="row">
+                                <select class="form-control" ng-model="eventType">
+                                    <option value="Meeting" selected="true">Meeting</option>
+                                    <option value="Appointment">Appointment</option>
+                                    <option value="Task">Task</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-primary col-xs-14" ng-click="addEvent(eventType,eventName)">
+                                    Add Event
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-xs-10 events-right-column">
+                            <div class="row">
+                                <input type="text" class="form-control" ng-model="eventName"/>
+                            </div>
+                            <div class="row" ng-show="!today.events.length">
+                                <h4>
+                                    There are no entries.
+                                </h4>
+                            </div>
+                            <div class="row" ng-repeat="event in today.events">
+                                <div ng-class="{'panel panel-info col-xs-12':event.type == 'Task',
+                        'panel panel-primary col-xs-12':event.type == 'Meeting', 'panel panel-warning col-xs-12':event.type == 'Appointment'}">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">{{event.type}}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        {{event.name}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="btn-group col-xs-14">
+                                        <button type="button" class="btn btn-default" ng-click="removeEvent($index)">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
 </body>
 </html>
