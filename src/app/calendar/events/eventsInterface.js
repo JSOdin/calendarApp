@@ -3,7 +3,7 @@
         .directive('eventsInterface',['calendarData', 'weatherForecast',function(calendarData, weatherForecast){
             return {
                 restrict:'E',
-                templateUrl: 'eventsInterface.html',
+                templateUrl: './src/app/calendar/events/eventsInterface.html',
                 link: function(scope){
                     scope.today = calendarData.currentEventsDay;
 

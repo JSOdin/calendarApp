@@ -3,7 +3,7 @@
         .directive('calendar',['calendarBuilder', 'calendarData', function(calendarBuilder,calendarData){
             return {
                 restrict:'E',
-                templateUrl: 'calendarInterface.html',
+                templateUrl: './src/app/calendar/calendarInterface/calendarInterface.html',
                 link: function(scope){
                     var thisMonthReference = calendarData.currentMonth, startOfCalendarViewMoment = resetToFirstDayOnCalendar(thisMonthReference.clone());
 
