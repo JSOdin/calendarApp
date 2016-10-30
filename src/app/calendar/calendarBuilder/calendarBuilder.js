@@ -7,21 +7,23 @@
             
             function createWeeks(startOfCalendarViewMoment, thisMonthReference){
                 var hasFourWeeksAndPassedMonth, weeksCount = 0, weekStart = startOfCalendarViewMoment.clone(), currentMonth = weekStart.month(),
-                    week, referenceMonth = thisMonthReference.month();
+                    week, referenceMonth = thisMonthReference.month(), referenceYear = thisMonthReference.year();
 
-                calendarData.weeks[referenceMonth] = calendarData.weeks[referenceMonth] || [];
+                if (calendarData.weeks[referenceMonth+''+referenceYear]) return;
+                calendarData.weeks[referenceMonth+''+referenceYear] = {weeks:[]};
                 while (!hasFourWeeksAndPassedMonth){
-                    week= {days:createDays(weekStart.clone())};
-                    calendarData.weeks[referenceMonth].push(week);
+                    week= {days:createDays(weekStart)};
+                    calendarData.weeks[referenceMonth+''+referenceYear].weeks.push(week);
                     weeksCount++;
                     weekStart.add(1,'week');
                     hasFourWeeksAndPassedMonth = weeksCount > 3 && weekStart.month() != currentMonth;
+                    /*hasGeneratedSixRows = weeksCount == 6;*/
                     currentMonth = weekStart.month();
                 }
             }
 
             function createDays(firstDayOfWeek){
-                var iterationNum, dayToInsert=firstDayOfWeek.clone().day(0), week=[],day;        
+                var iterationNum, dayToInsert=firstDayOfWeek.clone(), week=[],day;
                 for (iterationNum=0; iterationNum<7; iterationNum++){                 
                     day = {moment: dayToInsert, events: []};
                     week.push(day);

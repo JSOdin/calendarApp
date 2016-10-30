@@ -14,7 +14,7 @@
                     initForecast(scope);
 
                     function addEvent(eventType, eventName){
-                        if (!scope.eventName) return;
+                        if (!scope.eventName || !scope.eventType) return;
                         var event = {type:eventType, name: eventName};
                         scope.today.events.push(event);
                         scope.eventName = '';

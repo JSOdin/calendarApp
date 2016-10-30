@@ -14,7 +14,7 @@
     border-left: 1px solid rgba(0,0,0,0.2);
 }
 
-.week-partition-row > div:hover{
+.week-partition-row > div:not(.off-month-days-panel):hover{
     border: 1px solid #337ab7 !important;
     cursor: pointer;
 }
@@ -37,6 +37,10 @@
     padding: 5px;
 }
 
+.off-month-days-panel{
+    background-color: rgb(245,245,245);
+    color: rgb(145,145,145);
+}
 
 /* top row */
 
@@ -96,4 +100,8 @@
 
 .events-left-column select:hover{
     cursor: pointer;
+}
+
+.event-name {
+    font-size: 0.8em;
 }

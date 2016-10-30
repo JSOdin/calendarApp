@@ -1,6 +1,6 @@
 (function(window,angular){
     angular.module('calendarApp')
-        .directive('calendar',['calendarBuilder', 'calendarData', function(calendarBuilder,calendarData){
+        .directive('calendar',['calendarBuilder', 'calendarData', '$state', function(calendarBuilder,calendarData, $state){
             return {
                 restrict:'E',
                 templateUrl: 'calendarInterface',
@@ -17,13 +17,18 @@
                     scope.filterEventsByType = filterEventsByType;
 
                     scope.isItSameDate = isItSameDate;
+                    
+                    scope.checkIfDayIsNotCurrentMonth = checkIfDayIsNotCurrentMonth;
+
+                    scope.goToEvents =goToEvents;
 
                     function initCalendar(){
-                        var thisMonth = thisMonthReference.month();
+                        var thisMonth = thisMonthReference.month(),
+                            thisYear = thisMonthReference.year();
                         if (!calendarData.weeks[thisMonth]){
                             calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
                         }
-                        scope.weeks = calendarData.weeks[thisMonth];
+                        scope.weeks = calendarData.weeks[thisMonth+''+thisYear].weeks;
                         scope.thisCalendarMonthDisplay = thisMonthReference.format("MMMM YYYY");
                     }
 
@@ -40,11 +45,14 @@
                     }
 
                     function selectDayForEventsPage(day){
-                        if (calendarData.currentEventsDay) {
+                        if (calendarData.currentEventsDay && thisMonthReference.month() == day.moment.month()) {
                             calendarData.currentEventsDay.selected = false;
                         }
-                        calendarData.currentEventsDay = day;
-                        day.selected = true;
+
+                        if (thisMonthReference.month() == day.moment.month()){
+                            calendarData.currentEventsDay = day;
+                            day.selected = true;
+                        }
                     }
 
                     function filterEventsByType(events,eventType){
@@ -54,23 +62,34 @@
                     }
 
                     function isItSameDate(day,momentToCompare){
-                        var dayMoment = day.moment;
                         momentToCompare = momentToCompare || moment();
-                        return dayMoment.date() == momentToCompare.date() && dayMoment.month() == momentToCompare.month() && dayMoment.year() == momentToCompare.year();
+                        return resetToMidnight(day.moment).isSame(resetToMidnight(momentToCompare));
                     }
                     
                     function switchMonth(scope, startOfCalendarViewMoment, thisMonthReference){
-                        var nextMonth = calendarData.weeks[thisMonthReference.month()];
+                        var nextMonth = calendarData.weeks[thisMonthReference.month()+''+thisMonthReference.year()];
                         if (!nextMonth){
                             calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
-                            nextMonth = calendarData.weeks[thisMonthReference.month()];
+                            nextMonth = calendarData.weeks[thisMonthReference.month()+''+thisMonthReference.year()];
                         }
-                        scope.weeks = nextMonth;
+                        scope.weeks = nextMonth.weeks;
                         scope.thisCalendarMonthDisplay = thisMonthReference.format("MMMM YYYY");
                     }
 
                     function resetToFirstDayOnCalendar(moment){
                         return moment.date(1).day(0);
+                    }
+
+                    function resetToMidnight(moment){
+                        return moment.millisecond(0).second(0).minute(0).hour(0);
+                    }
+                    
+                    function checkIfDayIsNotCurrentMonth(day){                       
+                        return day.moment.month() != thisMonthReference.month();
+                    }
+
+                    function goToEvents(day){
+                        return thisMonthReference.month() != day.moment.month() ? false : $state.go('events',{day: day.moment.date(), month: day.moment.month()+1});
                     }
                 }
             }
