@@ -60,6 +60,19 @@
     margin-top: 15px;
 }
 
+/* days of week row */
+
+.days-of-week > div {
+    border-right: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    font-weight: 600;
+    color: #31708f;
+}
+
+.days-of-week > div:first-child {
+    border-left: 1px solid rgba(0,0,0,0.2);
+}
+
 /* events page */
 
 .events-wrapper {
@@ -79,4 +92,8 @@
 }
 .events-right-column > div > div:nth-child(2) >div{
     margin-left: 5px;
+}
+
+.events-left-column select:hover{
+    cursor: pointer;
 }

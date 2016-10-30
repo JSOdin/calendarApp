@@ -5,12 +5,12 @@
 
             $stateProvider.state('calendar',{
                 url:'/',
-                templateUrl:'./src/app/calendar/calendar.html'
+                templateUrl:'calendar.html'
             });
 
             $stateProvider.state('events',{
                 url:'/events/:month/:day',
-                templateUrl:'./src/app/calendar/events/eventsManager.html'
+                templateUrl:'eventsManager.html'
             });
 
             $urlRouterProvider.otherwise('/');
