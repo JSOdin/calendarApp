@@ -3,12 +3,14 @@
         .factory('calendarData',[function(){
             var weeks={},
                 currentEventsDay=null,
-                currentMonth=moment();
+                currentMonth=moment(),
+                selectedDay=null;
             
             return {
                 weeks: weeks,
                 currentMonth: currentMonth,
-                currentEventsDay: currentEventsDay
+                currentEventsDay: currentEventsDay,
+                selectedDay: selectedDay
             }
         }])
 

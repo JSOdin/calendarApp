@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-xs-offset-2 col-xs-10">
+        <div class="col-xs-offset-2 col-xs-10 events-wrapper">
             <div class="row">
                 <div class="col-xs-7">
                     <h2>{{today.moment.format('MMMM Do, YYYY')}}</h2>
@@ -28,8 +28,14 @@
                     <div class="row">
                         <input type="text" class="form-control" ng-model="eventName"/>
                     </div>
+                    <div class="row" ng-show="!today.events.length">
+                        <h4>
+                            There are no entries.
+                        </h4>
+                    </div>
                     <div class="row" ng-repeat="event in today.events">
-                        <div class="panel panel-info col-xs-12">
+                        <div ng-class="{'panel panel-info col-xs-12':event.type == 'Task',
+                        'panel panel-primary col-xs-12':event.type == 'Meeting', 'panel panel-warning col-xs-12':event.type == 'Appointment'}">
                             <div class="panel-heading">
                                 <h3 class="panel-title">{{event.type}}</h3>
                             </div>

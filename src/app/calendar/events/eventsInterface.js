@@ -9,8 +9,8 @@
 
                     scope.addEvent = addEvent;
                     
-                    scope.removeEvent = removeEvent;
-
+                    scope.removeEvent = removeEvent;                   
+                    
                     initForecast(scope);
 
                     function addEvent(eventType, eventName){

@@ -20,9 +20,15 @@
                         switchMonth(scope, startOfCalendarViewMoment,thisMonthReference);
                     }            
                     
-                    scope.selectDayForEventsPage = function(day){
-                        calendarData.currentEventsDay = day;
-                    };
+                    scope.selectDayForEventsPage = selectDayForEventsPage;
+                    
+                    scope.filterEventsByType = function(events,eventType){
+                        return events.filter(function(eachEventObject){
+                            return eachEventObject.type == eventType;
+                        });
+                    }
+
+                    scope.isItSameDate = isItSameDate;
                     
                     function switchMonth(scope, startOfCalendarViewMoment, thisMonthReference){
                         var nextMonth = calendarData.weeks[thisMonthReference.month()];
@@ -31,6 +37,7 @@
                             nextMonth = calendarData.weeks[thisMonthReference.month()];
                         }
                         scope.weeks = nextMonth;
+                        scope.thisCalendarMonthDisplay = thisMonthReference.format("MMMM YYYY");
                     }
 
                     function resetToFirstDayOnCalendar(moment){
@@ -43,6 +50,21 @@
                             calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
                         }
                         scope.weeks = calendarData.weeks[thisMonth];
+                        scope.thisCalendarMonthDisplay = thisMonthReference.format("MMMM YYYY");
+                    }
+
+                    function selectDayForEventsPage(day){
+                        if (calendarData.currentEventsDay) {
+                            calendarData.currentEventsDay.selected = false;
+                        }
+                        calendarData.currentEventsDay = day;
+                        day.selected = true;
+                    };
+
+                    function isItSameDate(day,momentToCompare){
+                        var dayMoment = day.moment;
+                        momentToCompare = momentToCompare || moment();
+                        return dayMoment.date() == momentToCompare.date() && dayMoment.month() == momentToCompare.month() && dayMoment.year() == momentToCompare.year();
                     }
                 }
             }
