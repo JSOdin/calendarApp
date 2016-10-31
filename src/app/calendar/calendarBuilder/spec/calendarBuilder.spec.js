@@ -1,37 +1,33 @@
 describe('calendarBuilder methods',function(){
-    var calendarBuilder, scope = {}, startOfCalendarView;
+    var calendarBuilder, calendarData, thisMonthReference, thisMonthReferenceTimestamp, generatedWeeksOfMonth, weeksArray, daysArray, startOfCalendarViewMoment;
 
     beforeEach(angular.mock.module('calendarApp'));
 
-    beforeEach(inject(function(_calendarBuilder_){
+    beforeEach(inject(function(_calendarBuilder_, _calendarData_){
         calendarBuilder = _calendarBuilder_;
+        calendarData = _calendarData_;
     }));
 
     beforeEach(function(){
-        scope.weeks = [];
-        startOfCalendarView = moment().date(1).day(0);
-    });
-
-    describe('createDays',function(){
-        it("should build a list of the days of the week", function (){
-            var iterationNum, dayToInsert= moment("10-28-2016", "MM-DD-YYYY").day(0), week=[];
-            for (iterationNum=0; iterationNum<7; iterationNum++){
-                week.push(dayToInsert);
-                dayToInsert = dayToInsert.clone();
-                dayToInsert.add(1,'day');
-            }
-
-            expect(week[0].date()).toEqual(23);
-
-            expect(week[6].date()).toEqual(29);
-        })
+        startOfCalendarViewMoment = moment().date(1).day(0);
+        thisMonthReference = moment();
+        thisMonthReferenceTimestamp = thisMonthReference.month()+''+thisMonthReference.year();
+        calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
+        generatedWeeksOfMonth = calendarData.weeks[thisMonthReferenceTimestamp];
     });
 
     describe('createWeeks',function(){
-        it('should build the weeks array using the factory method',function(){
-            calendarBuilder.createWeeks(scope, startOfCalendarView)
-            expect(scope.weeks[0].days[0].date()).toEqual(startOfCalendarView.date());
-            expect(scope.weeks[scope.weeks.length-1].days[6].date()).toEqual(startOfCalendarView.day(6).add(1,'month').subtract(1,'day').day(6).date());
+        describe('should build the weeks arrays using the createWeeks factory method',function(){
+            it('generated weeks\' first day in days array of first week should equal calendar\'s first day',function(){                  
+                expect(generatedWeeksOfMonth.weeks[0].days[0].moment.date() == startOfCalendarViewMoment.date())
+            })
+
+            it('generated weeks\' last day in days array of last week should equal calendar\'s last day',function(){
+                weeksArray = generatedWeeksOfMonth.weeks;
+                daysArray = weeksArray[weeksArray.length-1].days;
+                expect(daysArray[daysArray.length-1].moment.date() == startOfCalendarViewMoment.endOf('month').day(6).date());
+                startOfCalendarViewMoment.date(1).day(0);
+            })
         })
-    })
-})
+    }); 
+});
