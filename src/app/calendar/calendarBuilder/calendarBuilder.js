@@ -7,17 +7,17 @@
             
             function createWeeks(startOfCalendarViewMoment, thisMonthReference){
                 var hasFourWeeksAndPassedMonth, weeksCount = 0, weekStart = startOfCalendarViewMoment.clone(), currentMonth = weekStart.month(),
-                    week, referenceMonth = thisMonthReference.month(), referenceYear = thisMonthReference.year();
+                    week, thisMonthReferenceTimestamp = thisMonthReference.month() +''+ thisMonthReference.year();
 
-                if (calendarData.weeks[referenceMonth+''+referenceYear]) return;
-                calendarData.weeks[referenceMonth+''+referenceYear] = {weeks:[]};
+                if (calendarData.weeks[thisMonthReferenceTimestamp]) return;
+                calendarData.weeks[thisMonthReferenceTimestamp] = {weeks:[]};
                 while (!hasFourWeeksAndPassedMonth){
                     week= {days:createDays(weekStart)};
-                    calendarData.weeks[referenceMonth+''+referenceYear].weeks.push(week);
+                    calendarData.weeks[thisMonthReferenceTimestamp].weeks.push(week);
                     weeksCount++;
                     weekStart.add(1,'week');
                     hasFourWeeksAndPassedMonth = weeksCount > 3 && weekStart.month() != currentMonth;
-                    /*hasGeneratedSixRows = weeksCount == 6;*/
+                    /*hasGeneratedSixRows = weeksCount == 6; for fixed 6 rows */
                     currentMonth = weekStart.month();
                 }
             }
@@ -25,7 +25,12 @@
             function createDays(firstDayOfWeek){
                 var iterationNum, dayToInsert=firstDayOfWeek.clone(), week=[],day;
                 for (iterationNum=0; iterationNum<7; iterationNum++){                 
-                    day = {moment: dayToInsert, events: []};
+                    day = {moment: dayToInsert, events: [], selected:false};
+                    if (dayToInsert.date() == moment().date() && dayToInsert.month() == moment().month() && calendarData.selectTodayOnLaunch) {
+                        day.selected = true
+                        calendarData.selectTodayOnLaunch = false;
+                        calendarData.currentEventsDay = day;
+                    }
                     week.push(day);
                     dayToInsert = dayToInsert.clone();
                     dayToInsert.add(1,'day');

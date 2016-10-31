@@ -23,12 +23,11 @@
                     scope.goToEvents =goToEvents;
 
                     function initCalendar(){
-                        var thisMonth = thisMonthReference.month(),
-                            thisYear = thisMonthReference.year();
-                        if (!calendarData.weeks[thisMonth]){
+                        var thisMonthReferenceTimestamp = thisMonthReference.month()+''+thisMonthReference.year();
+                        if (!calendarData.weeks[thisMonthReferenceTimestamp]){
                             calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
                         }
-                        scope.weeks = calendarData.weeks[thisMonth+''+thisYear].weeks;
+                        scope.weeks = calendarData.weeks[thisMonthReferenceTimestamp].weeks;
                         scope.thisCalendarMonthDisplay = thisMonthReference.format("MMMM YYYY");
                     }
 
@@ -67,10 +66,11 @@
                     }
                     
                     function switchMonth(scope, startOfCalendarViewMoment, thisMonthReference){
-                        var nextMonth = calendarData.weeks[thisMonthReference.month()+''+thisMonthReference.year()];
+                        var thisMonthReferenceTimestamp = thisMonthReference.month()+''+thisMonthReference.year();
+                        var nextMonth = calendarData.weeks[thisMonthReferenceTimestamp];
                         if (!nextMonth){
                             calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
-                            nextMonth = calendarData.weeks[thisMonthReference.month()+''+thisMonthReference.year()];
+                            nextMonth = calendarData.weeks[thisMonthReferenceTimestamp];
                         }
                         scope.weeks = nextMonth.weeks;
                         scope.thisCalendarMonthDisplay = thisMonthReference.format("MMMM YYYY");

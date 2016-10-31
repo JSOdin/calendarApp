@@ -4,13 +4,13 @@
             var weeks={},
                 currentEventsDay=null,
                 currentMonth=moment(),
-                selectedDay=null;
+                selectTodayOnLaunch=true;
             
             return {
                 weeks: weeks,
                 currentMonth: currentMonth,
-                currentEventsDay: currentEventsDay,
-                selectedDay: selectedDay
+                currentEventsDay: currentEventsDay,             
+                selectTodayOnLaunch: selectTodayOnLaunch
             }
         }])
 
