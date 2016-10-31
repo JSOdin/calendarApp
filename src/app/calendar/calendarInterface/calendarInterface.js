@@ -5,7 +5,7 @@
                 restrict:'E',
                 templateUrl: 'calendarInterface',
                 link: function(scope){
-                    var thisMonthReference = calendarData.currentMonth, startOfCalendarViewMoment = resetToFirstDayOnCalendar(thisMonthReference.clone());
+                    var thisMonthReference = calendarData.currentMonth, startOfCalendarViewMoment = resetToMidnight(resetToFirstDayOnCalendar(thisMonthReference.clone()));
 
                     initCalendar();
                     scope.incrementMonth = incrementMonth;
@@ -33,13 +33,13 @@
 
                     function incrementMonth(){
                         thisMonthReference.month(thisMonthReference.month()+1);
-                        startOfCalendarViewMoment = resetToFirstDayOnCalendar(thisMonthReference.clone());
+                        startOfCalendarViewMoment = resetToMidnight(resetToFirstDayOnCalendar(thisMonthReference.clone()));
                         switchMonth(scope, startOfCalendarViewMoment, thisMonthReference);
                     }
 
                     function decrementMonth(){
                         thisMonthReference.month(thisMonthReference.month()-1);
-                        startOfCalendarViewMoment = resetToFirstDayOnCalendar(thisMonthReference.clone());
+                        startOfCalendarViewMoment = resetToMidnight(resetToFirstDayOnCalendar(thisMonthReference.clone()));
                         switchMonth(scope, startOfCalendarViewMoment,thisMonthReference);
                     }
 
@@ -62,7 +62,7 @@
 
                     function isItSameDate(day,momentToCompare){
                         momentToCompare = momentToCompare || moment();
-                        return resetToMidnight(day.moment).isSame(resetToMidnight(momentToCompare));
+                        return day.moment.isSame(resetToMidnight(momentToCompare));
                     }
                     
                     function switchMonth(scope, startOfCalendarViewMoment, thisMonthReference){
