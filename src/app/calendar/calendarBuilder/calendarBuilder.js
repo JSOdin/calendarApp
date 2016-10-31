@@ -9,11 +9,11 @@
                 var hasFourWeeksAndPassedMonth, weeksCount = 0, weekStart = startOfCalendarViewMoment.clone(), currentMonth = weekStart.month(),
                     week, thisMonthReferenceTimestamp = thisMonthReference.month() +''+ thisMonthReference.year();
 
-                if (calendarData.weeks[thisMonthReferenceTimestamp]) return;
-                calendarData.weeks[thisMonthReferenceTimestamp] = {weeks:[]};
+                if (calendarData.months[thisMonthReferenceTimestamp]) return;
+                calendarData.months[thisMonthReferenceTimestamp] = {weeks:[]};
                 while (!hasFourWeeksAndPassedMonth){
                     week= {days:createDays(weekStart)};
-                    calendarData.weeks[thisMonthReferenceTimestamp].weeks.push(week);
+                    calendarData.months[thisMonthReferenceTimestamp].weeks.push(week);
                     weeksCount++;
                     weekStart.add(1,'week');
                     hasFourWeeksAndPassedMonth = weeksCount > 3 && weekStart.month() != currentMonth;

@@ -1,13 +1,13 @@
 (function(window,angular){
     angular.module('calendarApp')
         .factory('calendarData',[function(){
-            var weeks={},
+            var months={},
                 currentEventsDay=null,
                 currentMonth=moment(),
                 selectTodayOnLaunch=true;
             
             return {
-                weeks: weeks,
+                months: months,
                 currentMonth: currentMonth,
                 currentEventsDay: currentEventsDay,             
                 selectTodayOnLaunch: selectTodayOnLaunch

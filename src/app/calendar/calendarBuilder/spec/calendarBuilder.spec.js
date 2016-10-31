@@ -13,7 +13,7 @@ describe('calendarBuilder methods',function(){
         thisMonthReference = moment();
         thisMonthReferenceTimestamp = thisMonthReference.month()+''+thisMonthReference.year();
         calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
-        generatedWeeksOfMonth = calendarData.weeks[thisMonthReferenceTimestamp];
+        generatedWeeksOfMonth = calendarData.months[thisMonthReferenceTimestamp];
     });
 
     describe('createWeeks',function(){
