@@ -1,11 +1,11 @@
 (function(window,angular){
     angular.module('calendarApp')
-        .directive('calendar',['calendarBuilder', 'calendarData', '$state', function(calendarBuilder,calendarData, $state){
+        .directive('calendar',['calendarBuilder', 'calendarData', 'calendarState','$state', function(calendarBuilder,calendarData, calendarState,$state){
             return {
                 restrict:'E',
                 templateUrl: 'calendarInterface',
                 link: function(scope){
-                    var thisMonthReference = calendarData.currentMonth, startOfCalendarViewMoment = resetToMidnight(resetToFirstDayOnCalendar(thisMonthReference.clone()));
+                    var thisMonthReference = calendarState.currentMonth, startOfCalendarViewMoment = resetToMidnight(resetToFirstDayOnCalendar(thisMonthReference.clone()));
 
                     initCalendar(scope, startOfCalendarViewMoment, thisMonthReference);
                     scope.incrementMonth = incrementMonth;
@@ -44,12 +44,12 @@
                     }
 
                     function selectDayForEventsPage(day){
-                        if (calendarData.currentEventsDay && thisMonthReference.month() == day.moment.month()) {
-                            calendarData.currentEventsDay.selected = false;
+                        if (calendarState.currentEventsDay && thisMonthReference.month() == day.moment.month()) {
+                            calendarState.currentEventsDay.selected = false;
                         }
 
                         if (thisMonthReference.month() == day.moment.month()){
-                            calendarData.currentEventsDay = day;
+                            calendarState.currentEventsDay = day;
                             day.selected = true;
                         }
                     }

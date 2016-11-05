@@ -1,11 +1,11 @@
 (function(window,angular){
     angular.module('calendarApp')
-        .directive('eventsInterface',['calendarData', 'weatherForecast',function(calendarData, weatherForecast){
+        .directive('eventsInterface',['calendarData','calendarState', 'weatherForecast',function(calendarData, calendarState,weatherForecast){
             return {
                 restrict:'E',
                 templateUrl: 'eventsInterface',
                 link: function(scope){
-                    scope.today = calendarData.currentEventsDay;
+                    scope.today = calendarState.currentEventsDay;
 
                     scope.addEvent = addEvent;
                     

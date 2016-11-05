@@ -1,6 +1,6 @@
 (function(window,angular){
     angular.module('calendarApp')
-        .factory('calendarBuilder',['calendarData',function(calendarData){
+        .factory('calendarBuilder',['calendarData','calendarState',function(calendarData,calendarState){
 
             return {
                 createWeeks:createWeeks
@@ -26,10 +26,10 @@
                 var iterationNum, dayToInsert=firstDayOfWeek.clone(), week=[],day, today=resetToMidnight(moment());
                 for (iterationNum=0; iterationNum<7; iterationNum++){                 
                     day = {moment: dayToInsert, events: [], selected:false};
-                    if (day.moment.isSame(today) && calendarData.selectTodayOnLaunch) {
+                    if (day.moment.isSame(today) && calendarState.selectTodayOnLaunch) {
                         day.selected = true
-                        calendarData.selectTodayOnLaunch = false;
-                        calendarData.currentEventsDay = day;
+                        calendarState.selectTodayOnLaunch = false;
+                        calendarState.currentEventsDay = day;
                     }
                     week.push(day);
                     dayToInsert = dayToInsert.clone();
