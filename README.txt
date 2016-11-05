@@ -31,3 +31,4 @@ with a "timestamp" key made of the month index + that month's year. for ex. Octo
 -each month data may not necessarily contain only the month's days. it will contain whichever day is needed to generate the full calendar month view.
 -for ex. the "october" month's first week will contain dates from September.
 -because of this duplication of weeks, days for only the current calendar month will have event input enabled.
+
