@@ -7,7 +7,7 @@
                 link: function(scope){
                     var thisMonthReference = calendarData.currentMonth, startOfCalendarViewMoment = resetToMidnight(resetToFirstDayOnCalendar(thisMonthReference.clone()));
 
-                    initCalendar();
+                    initCalendar(scope, startOfCalendarViewMoment, thisMonthReference);
                     scope.incrementMonth = incrementMonth;
 
                     scope.decrementMonth = decrementMonth;
@@ -22,7 +22,7 @@
 
                     scope.goToEvents =goToEvents;
 
-                    function initCalendar(){
+                    function initCalendar(scope, startOfCalendarViewMoment, thisMonthReference){
                         var thisMonthReferenceTimestamp = thisMonthReference.month()+''+thisMonthReference.year();
                         if (!calendarData.months[thisMonthReferenceTimestamp]){
                             calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
@@ -34,13 +34,13 @@
                     function incrementMonth(){
                         thisMonthReference.month(thisMonthReference.month()+1);
                         startOfCalendarViewMoment = resetToMidnight(resetToFirstDayOnCalendar(thisMonthReference.clone()));
-                        switchMonth(scope, startOfCalendarViewMoment, thisMonthReference);
+                        initCalendar(scope, startOfCalendarViewMoment, thisMonthReference);
                     }
 
                     function decrementMonth(){
                         thisMonthReference.month(thisMonthReference.month()-1);
                         startOfCalendarViewMoment = resetToMidnight(resetToFirstDayOnCalendar(thisMonthReference.clone()));
-                        switchMonth(scope, startOfCalendarViewMoment,thisMonthReference);
+                        initCalendar(scope, startOfCalendarViewMoment,thisMonthReference);
                     }
 
                     function selectDayForEventsPage(day){
@@ -63,17 +63,6 @@
                     function isItSameDate(day,momentToCompare){
                         momentToCompare = momentToCompare || moment();
                         return day.moment.isSame(resetToMidnight(momentToCompare));
-                    }
-                    
-                    function switchMonth(scope, startOfCalendarViewMoment, thisMonthReference){
-                        var thisMonthReferenceTimestamp = thisMonthReference.month()+''+thisMonthReference.year();
-                        var nextMonth = calendarData.months[thisMonthReferenceTimestamp];
-                        if (!nextMonth){
-                            calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
-                            nextMonth = calendarData.months[thisMonthReferenceTimestamp];
-                        }
-                        scope.weeks = nextMonth.weeks;
-                        scope.thisCalendarMonthDisplay = thisMonthReference.format("MMMM YYYY");
                     }
 
                     function resetToFirstDayOnCalendar(moment){
