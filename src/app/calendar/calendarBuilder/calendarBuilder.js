@@ -16,9 +16,10 @@
                     calendarData.months[thisMonthReferenceTimestamp].weeks.push(week);
                     weeksCount++;
                     weekStart.add(1,'week');    // now weekstart represents next week.
-                    hasFourOrMoreWeeksAndPassedMonth = weeksCount > 3 && weekStart.month() != currentMonth; // currentMonth : tracks where we are in our weeks building. weekStart is used directly to build out weeks
+                    hasFourOrMoreWeeksAndPassedMonth = weeksCount > 3 && weekStart.month() != currentMonth; 
                     /*hasGeneratedSixRows = weeksCount == 6; for fixed 6 rows */
-                    currentMonth = weekStart.month();
+                    // currentMonth : tracks where we are in our weeks building. weekStart is used directly to build out weeks
+                    currentMonth = weekStart.month();                  
                 }
             }
 

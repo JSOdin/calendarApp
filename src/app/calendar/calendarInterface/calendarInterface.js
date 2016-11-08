@@ -32,13 +32,13 @@
                     }
 
                     function incrementMonth(){
-                        thisMonthReference.month(thisMonthReference.month()+1);
+                        thisMonthReference.add(1,'months');
                         startOfCalendarViewMoment = resetToMidnight(resetToFirstDayOnCalendar(thisMonthReference.clone()));
                         initCalendar(scope, startOfCalendarViewMoment, thisMonthReference);
                     }
 
                     function decrementMonth(){
-                        thisMonthReference.month(thisMonthReference.month()-1);
+                        thisMonthReference.subtract(1,'months')
                         startOfCalendarViewMoment = resetToMidnight(resetToFirstDayOnCalendar(thisMonthReference.clone()));
                         initCalendar(scope, startOfCalendarViewMoment,thisMonthReference);
                     }
