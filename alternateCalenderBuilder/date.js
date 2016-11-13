@@ -18,12 +18,7 @@ function buildMonth(start, monthReference, direction){
     var nextDayIsDifferentMonthAndCurrentDayIsSunday;
 
     if (monthsCache[referenceMonthTimeStamp]){
-        // find index of first calendar day and get how manyever days are indicated in cache by slice
-        for (var i=0; i<dates.length;i++){
-            if (dates[i].getDate() == startofCalendar.getDate() && dates[i].getMonth() == startofCalendar.getMonth() && dates[i].getFullYear() == startofCalendar.getFullYear()){
-                return dates.slice(i, i+monthsCache[referenceMonthTimeStamp].numOfDays);
-            }
-        }
+        return monthsCache[referenceMonthTimeStamp];
     }
 
     while (!nextDayIsDifferentMonthAndCurrentDayIsSunday){
@@ -34,17 +29,17 @@ function buildMonth(start, monthReference, direction){
         startofCalendar.setDate(startofCalendar.getDate()+1);
     }
 
-    monthsCache[referenceMonthTimeStamp] = {numOfDays: month.length};
+    monthsCache[referenceMonthTimeStamp] = {days: month};
 
     adjustNewMonths(dates, month, direction);
 
     if (direction == 'forward'){
-        dates = dates.concat(month);
-        return dates.slice(dates.length-month.length,dates.length);
+        return monthsCache[referenceMonthTimeStamp];
     } else {
         dates = month.concat(dates);
-        return dates.slice(0, month.length);
     }
+
+    return monthsCache[referenceMonthTimeStamp];
 }
 
 function adjustNewMonths(bigDatesArray, month, direction){
