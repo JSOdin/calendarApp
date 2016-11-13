@@ -34,7 +34,7 @@ function buildMonth(start, monthReference, direction){
     adjustNewMonths(dates, month, direction);
 
     if (direction == 'forward'){
-        return monthsCache[referenceMonthTimeStamp];
+        dates = dates.concat(month);
     } else {
         dates = month.concat(dates);
     }
@@ -91,7 +91,7 @@ start.setDate(1);
 start.setDate(start.getDate()-start.getDay());
 
 //go back one month (dec)
-buildMonth(start,monthReference, 'backward')
+console.log(buildMonth(start,monthReference, 'backward'));
 
 monthReference.setMonth(monthReference.getMonth()-1);
 start = new Date(monthReference);
@@ -99,7 +99,7 @@ start.setDate(1);
 start.setDate(start.getDate()-start.getDay());
 
 //go back one month (nov)
-buildMonth(start,monthReference, 'backward')
+console.log(buildMonth(start,monthReference, 'backward'));
 
 monthReference.setMonth(monthReference.getMonth()-1);
 start = new Date(monthReference);
