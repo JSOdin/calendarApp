@@ -1,10 +1,15 @@
 describe('calendarApp',function(){
-    var calendarApp;
+    var calendarApp,
+        calendarData;
     beforeEach(function(){
-        calendarApp = angular.module('calendarApp');
-    })
+        calendarApp = angular.mock.module('calendarApp');
+    });
+
+    beforeEach(inject(function(_calendarData_){
+        calendarData = _calendarData_;
+    }))
 
    it("should load the root app",function(){   
-       expect(calendarApp).toBeDefined();
+       expect(calendarData).toBeDefined();
    })
 });

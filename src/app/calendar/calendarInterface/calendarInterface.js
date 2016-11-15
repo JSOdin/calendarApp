@@ -23,7 +23,7 @@
                     scope.goToEvents =goToEvents;
 
                     function initCalendar(scope, startOfCalendarViewMoment, thisMonthReference){
-                        var thisMonthReferenceTimestamp = thisMonthReference.month()+''+thisMonthReference.year();
+                        var thisMonthReferenceTimestamp = thisMonthReference.month()+''+thisMonthReference.year();                        
                         if (!calendarData.months[thisMonthReferenceTimestamp]){
                             calendarBuilder.createWeeks(startOfCalendarViewMoment, thisMonthReference);
                         }

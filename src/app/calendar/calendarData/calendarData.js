@@ -1,6 +1,6 @@
 (function(window,angular){
     angular.module('calendarApp')
-        .factory('calendarData',[function(){                
+        .factory('calendarData',[function(){        
             return {
                 months: {}             
             }
